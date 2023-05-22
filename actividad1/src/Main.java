@@ -11,6 +11,8 @@ public class Main {
     static int n = getMatrixSizeFromUser();
     static int count = 0;
     public static void main(String[] args) {
+
+        Matrix matrix = new Matrix();
 //
         @ValName("Matriz 1")
         int[][] A = new int[n][n];
@@ -21,14 +23,14 @@ public class Main {
         fillMatrix(A, n);
         fillMatrix(B, n);
 
-        C = Matrix.sumMatrix(A, B);
+        C = matrix.sumMatrix(A, B);
 
         System.out.println("La matriz resultado de la suma es:");
-        Matrix.printMatrix(C);
+        matrix.printMatrix(C);
 
         System.out.println("La matriz resultado de la multiplicacion es:");
-        C = Matrix.multiplyMatrices(A, B);
-        Matrix.printMatrix(C);
+        C = matrix.multiplyMatrices(A, B);
+        matrix.printMatrix(C);
 
         scanner.close();
     }
