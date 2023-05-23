@@ -2,35 +2,21 @@ package algorithms;
 
 import utils.Timer;
 
-public class BubbleSort extends Timer {
+public class BubbleSort<TYPE extends Comparable<TYPE>> extends Timer<TYPE> {
 
-    public void measureBubbleSortTime(String description, int[] arr) {
-        measureSortingTime(description, arr, BubbleSort::bubbleSort);
-    }
-
-    public static void bubbleSort(int[] arr) {
-        int n = arr.length;
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-                if (arr[j] > arr[j + 1]) {
-                    int temp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
-                }
-            }
+    @SafeVarargs
+    public final void measureBubbleSortTime(TYPE[]... arr) {
+        for (TYPE[] array : arr) {
+            measureSortingTime(array, BubbleSort::bubbleSort);
         }
     }
 
-    public void measureBubbleSortTime(String description, String[] arr) {
-        measureSortingTime(description, arr, BubbleSort::bubbleSort);
-    }
-
-    public static void bubbleSort(String[] arr) {
+    private static <TYPE extends Comparable<TYPE>> void bubbleSort(TYPE[] arr) {
         int n = arr.length;
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {
                 if (arr[j].compareTo(arr[j + 1]) > 0) {
-                    String temp = arr[j];
+                    TYPE temp = arr[j];
                     arr[j] = arr[j + 1];
                     arr[j + 1] = temp;
                 }

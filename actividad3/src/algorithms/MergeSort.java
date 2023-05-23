@@ -4,20 +4,23 @@ import utils.Timer;
 
 import java.util.Arrays;
 
-public class MergeSort extends Timer {
+public class MergeSort<TYPE extends Comparable<TYPE>> extends Timer<TYPE> {
 
-    public void measureMergeSortTime(String description, int[] arr) {
-        measureSortingTime(description, arr, MergeSort::mergeSort);
+    @SafeVarargs
+    public final void measureMergeSortTime(TYPE[]... arr) {
+        for (TYPE[] array : arr) {
+            measureSortingTime(array, MergeSort::mergeSort);
+        }
     }
 
-    public static void mergeSort(int[] arr) {
+    public static <TYPE extends Comparable<TYPE>> void mergeSort(TYPE[] arr) {
         if (arr.length <= 1) {
             return;
         }
 
         int mid = arr.length / 2;
-        int[] left = Arrays.copyOfRange(arr, 0, mid);
-        int[] right = Arrays.copyOfRange(arr, mid, arr.length);
+        TYPE[] left = Arrays.copyOfRange(arr, 0, mid);
+        TYPE[] right = Arrays.copyOfRange(arr, mid, arr.length);
 
         mergeSort(left);
         mergeSort(right);
@@ -25,48 +28,7 @@ public class MergeSort extends Timer {
         merge(left, right, arr);
     }
 
-    private static void merge(int[] left, int[] right, int[] arr) {
-        int leftLength = left.length;
-        int rightLength = right.length;
-        int i = 0, j = 0, k = 0;
-
-        while (i < leftLength && j < rightLength) {
-            if (left[i] <= right[j]) {
-                arr[k++] = left[i++];
-            } else {
-                arr[k++] = right[j++];
-            }
-        }
-
-        while (i < leftLength) {
-            arr[k++] = left[i++];
-        }
-
-        while (j < rightLength) {
-            arr[k++] = right[j++];
-        }
-    }
-
-    public void measureMergeSortTime(String description, String[] arr) {
-        measureSortingTime(description, arr, MergeSort::mergeSort);
-    }
-
-    public static void mergeSort(String[] arr) {
-        if (arr.length <= 1) {
-            return;
-        }
-
-        int mid = arr.length / 2;
-        String[] left = Arrays.copyOfRange(arr, 0, mid);
-        String[] right = Arrays.copyOfRange(arr, mid, arr.length);
-
-        mergeSort(left);
-        mergeSort(right);
-
-        merge(left, right, arr);
-    }
-
-    private static void merge(String[] left, String[] right, String[] arr) {
+    private static <TYPE extends Comparable<TYPE>> void merge(TYPE[] left, TYPE[] right, TYPE[] arr) {
         int leftLength = left.length;
         int rightLength = right.length;
         int i = 0, j = 0, k = 0;
@@ -88,3 +50,4 @@ public class MergeSort extends Timer {
         }
     }
 }
+

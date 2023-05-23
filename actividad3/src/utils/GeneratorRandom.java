@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class GeneratorRandom {
 
-    public int[] generateRandomIntArray(Random r, int size) {
-        return r.ints(size).toArray();
+    public Integer[] generateRandomIntArray(Random r, int size) {
+        return r.ints(size).boxed().toArray(Integer[]::new);
     }
 
     public  String[] generateRandomStringArray(Random r, int size) {

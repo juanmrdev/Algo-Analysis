@@ -7,12 +7,8 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class Main {
-
-    static BubbleSort bubbleSort = new BubbleSort();
-    static MergeSort mergeSort = new MergeSort();
-    static QuickSort quickSort = new QuickSort();
-
     static GeneratorRandom generatorRandom = new GeneratorRandom();
+    static Random r = new Random();
 
     public static void main(String[] args) {
 
@@ -22,49 +18,57 @@ public class Main {
     }
 
     protected static void initSortIntegers(){
-        Random r = new Random();
 
-        int[] array100 = generatorRandom.generateRandomIntArray(r, 100);
-        int[] array1000 = generatorRandom.generateRandomIntArray(r, 1000);
-        int[] array10000 = generatorRandom.generateRandomIntArray(r, 10000);
+        Integer[] array100 = generatorRandom.generateRandomIntArray(r, 100);
+        Integer[] array1000 = generatorRandom.generateRandomIntArray(r, 1000);
+        Integer[] array10000 = generatorRandom.generateRandomIntArray(r, 10000);
 
-        System.out.println("\nOrdenamiento Burbuja:");
-        bubbleSort.measureBubbleSortTime("100 elementos Integer", Arrays.copyOf(array100, array100.length));
-        bubbleSort.measureBubbleSortTime("1000 elementos Integer", Arrays.copyOf(array1000, array1000.length));
-        bubbleSort.measureBubbleSortTime("10000 elementos Integer", Arrays.copyOf(array10000, array10000.length));
+        BubbleSort<Integer> bubbleSort = new BubbleSort<>();
+        MergeSort<Integer> mergeSort = new MergeSort<>();
+        QuickSort<Integer> quickSort = new QuickSort<>();
 
-        System.out.println("\nOrdenamiento Merge-Sort:");
-        mergeSort.measureMergeSortTime("100 elementos Integer", Arrays.copyOf(array100, array100.length));
-        mergeSort.measureMergeSortTime("1000 elementos Integer", Arrays.copyOf(array1000, array1000.length));
-        mergeSort.measureMergeSortTime("10000 elementos Integer", Arrays.copyOf(array10000, array10000.length));
-
-        System.out.println("\nOrdenamiento Quick-Sort:");
-        quickSort.measureQuickSortTime("100 elementos Integer", Arrays.copyOf(array100, array100.length));
-        quickSort.measureQuickSortTime("1000 elementos Integer", Arrays.copyOf(array1000, array1000.length));
-        quickSort.measureQuickSortTime("10000 elementos Integer", Arrays.copyOf(array10000, array10000.length));
+        render(bubbleSort, mergeSort, quickSort, array100, array1000, array10000);
     }
 
     protected static void initSortAlphaNumerics(){
-        Random r = new Random();
 
         String[] array100 = generatorRandom.generateRandomStringArray(r, 100);
         String[] array1000 = generatorRandom.generateRandomStringArray(r, 1000);
         String[] array10000 = generatorRandom.generateRandomStringArray(r, 10000);
 
+        BubbleSort<String>  bubbleSort = new BubbleSort<>();
+        MergeSort<String>  mergeSort = new MergeSort<>();
+        QuickSort<String>  quickSort = new QuickSort<>();
+
+        render(bubbleSort, mergeSort, quickSort, array100, array1000, array10000);
+    }
+
+    protected static <TYPE extends Comparable<TYPE>> void render(
+            BubbleSort<TYPE> bubbleSort,
+            MergeSort<TYPE> mergeSort,
+            QuickSort<TYPE> quickSort,
+            TYPE[] array100,
+            TYPE[] array1000,
+            TYPE[] array10000
+    ){
         System.out.println("\nOrdenamiento Burbuja:");
-        bubbleSort.measureBubbleSortTime("100 elementos AlphaNumeric", Arrays.copyOf(array100, array100.length));
-        bubbleSort.measureBubbleSortTime("1000 elementos AlphaNumeric", Arrays.copyOf(array1000, array1000.length));
-        bubbleSort.measureBubbleSortTime("10000 elementos AlphaNumeric", Arrays.copyOf(array10000, array10000.length));
+
+        bubbleSort.measureBubbleSortTime(
+                Arrays.copyOf(array100, array100.length),
+                Arrays.copyOf(array1000, array1000.length),
+                Arrays.copyOf(array10000, array10000.length));
 
         System.out.println("\nOrdenamiento Merge-Sort:");
-        mergeSort.measureMergeSortTime("100 elementos AlphaNumeric", Arrays.copyOf(array100, array100.length));
-        mergeSort.measureMergeSortTime("1000 elementos AlphaNumeric", Arrays.copyOf(array1000, array1000.length));
-        mergeSort.measureMergeSortTime("10000 elementos AlphaNumeric", Arrays.copyOf(array10000, array10000.length));
+        mergeSort.measureMergeSortTime(
+                Arrays.copyOf(array100, array100.length),
+                Arrays.copyOf(array1000, array1000.length),
+                Arrays.copyOf(array10000, array10000.length));
 
         System.out.println("\nOrdenamiento Quick-Sort:");
-        quickSort.measureQuickSortTime("100 elementos AlphaNumeric", Arrays.copyOf(array100, array100.length));
-        quickSort.measureQuickSortTime("1000 elementos AlphaNumeric", Arrays.copyOf(array1000, array1000.length));
-        quickSort.measureQuickSortTime("10000 elementos AlphaNumeric", Arrays.copyOf(array10000, array10000.length));
+        quickSort.measureQuickSortTime(
+                Arrays.copyOf(array100, array100.length),
+                Arrays.copyOf(array1000, array1000.length),
+                Arrays.copyOf(array10000, array10000.length));
     }
 }
 
